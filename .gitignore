@@ -1,0 +1,7 @@
+neckarvenv/
+node_modules
+__pycache__/
+.env
+chroma_db/
+neckarmedia_crawl.json
+package-lock.json
