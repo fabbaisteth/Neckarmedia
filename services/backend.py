@@ -3,11 +3,8 @@ from openai import OpenAI
 from typing import List
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
-from dotenv import load_dotenv
-
+from dotenv import load_dotenv 
 load_dotenv()
-
-# openai.api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI()
 
 def get_relevant_context(query: str, n_results: int = 3) -> List[str]:

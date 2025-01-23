@@ -1,0 +1,8 @@
+# .dockerignore
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore .env if it contains sensitive info
+.env
