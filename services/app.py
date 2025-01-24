@@ -14,7 +14,7 @@ def chat_interface(user_input, chat_history):
     return "", chat_history  # Return empty input, updated chat history
 
 with gr.Blocks() as demo:
-    gr.Markdown("# My RAG-Powered Chatbot")
+    gr.Markdown("# Neckarmedia Chatbot")
 
     chatbot = gr.Chatbot(label="Chat with RAG + OpenAI")
     msg = gr.Textbox(label="Type your message here...")
