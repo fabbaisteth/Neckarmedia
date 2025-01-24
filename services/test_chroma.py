@@ -11,9 +11,9 @@ db = Chroma(
     persist_directory="chroma_db"
 )
 
-query = "Was ist Karlas geschichte?"
+query = "Corona Homeoffice"
 results = db.similarity_search(query, k=5)
-
+print(f"{query}")
 for i, doc in enumerate(results):
     print(f"\n--- Result {i+1} ---")
     print("URL:", doc.metadata.get("url"))
