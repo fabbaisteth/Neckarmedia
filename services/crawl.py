@@ -8,7 +8,7 @@ import time
 START_URL = "https://neckarmedia.com/"  # The base site to start crawling
 DOMAIN = "neckarmedia.com"
 SITEMAP_URL = urljoin(START_URL, "/sitemap.xml")
-MAX_PAGES = 200
+MAX_PAGES = 1000
 
 def is_valid_url(url):
     parsed = urlparse(url)
@@ -29,8 +29,14 @@ def clean_text(html_content):
     soup = BeautifulSoup(html_content, "lxml")
 
     # Remove <script> and <style> elements
-    for tag in soup(["script", "style", "noscript", "header", "footer"]):
+    for tag in soup(["script", "style", "noscript", "header", "footer", "select", "nav", "form", "input", "button", "img"]):
         tag.decompose()
+
+    classes_to_remove = ["address", "rplg", "nm_socket", "footer"]
+    for class_name in classes_to_remove:
+        elements = soup.find_all(class_=class_name)
+        for element in elements:
+            element.decompose()
 
     text = soup.get_text(separator=" ")
     # Remove extra whitespace
@@ -64,20 +70,32 @@ def get_sitemap_urls(sitemap_url, visited_sitemaps=None):
                         urls.append(loc)
     except Exception as e:
         print(f"Error fetching or parsing sitemap: {e}")
-
     return urls
 
+def extract_internal_links(html_content, base_url):
+    """
+    Extracts all internal links from the given HTML content.
+    """
+    soup = BeautifulSoup(html_content, "lxml")
+    links = set()
+
+    for tag in soup.find_all("a", href=True):
+        href = urljoin(base_url, tag["href"])  # Resolve relative URLs
+        if is_valid_url(href):
+            links.add(href)
+
+    return links
 
 def crawl_site(urls, max_pages=MAX_PAGES):
     """
     Crawls the list of URLs.
     """
     visited = set()
+    to_visit = set(urls)
     crawled_data = []
 
-    for url in urls:
-        if len(visited) >= max_pages:
-            break
+    while to_visit and len(visited) < max_pages:
+        url = to_visit.pop()
         normalized_url = url.rstrip("/")
         if normalized_url in visited:
             print(f"Skipping already visited URL: {url}")
@@ -89,7 +107,9 @@ def crawl_site(urls, max_pages=MAX_PAGES):
             resp = requests.get(url, timeout=10)
             if resp.status_code == 200 and "text/html" in resp.headers.get("Content-Type", ""):
                 page_text = clean_text(resp.text)
+                internal_links = extract_internal_links(resp.text, url)
 
+                to_visit.update(internal_links - visited)
                 # Extract title and save data
                 soup = BeautifulSoup(resp.text, "html.parser")
                 page_title = soup.title.string.strip() if soup.title else ""
