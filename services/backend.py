@@ -32,7 +32,7 @@ def generate_chat_response(user_query: str) -> str:
     3. Call OpenAI API to get the response.
     """
     # Retrieve top matches
-    context_docs = get_relevant_context(user_query, n_results=3)
+    context_docs = get_relevant_context(user_query, n_results=5)
 
     # Build a single string with the top context
     # Each chunk is appended with a separator, like '---' or '\n\n'

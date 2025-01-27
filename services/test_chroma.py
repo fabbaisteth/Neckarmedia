@@ -11,7 +11,7 @@ db = Chroma(
     persist_directory="chroma_db"
 )
 
-query = "Corona Homeoffice"
+query = "Homeoffice"
 results = db.similarity_search(query, k=5)
 print(f"{query}")
 for i, doc in enumerate(results):
