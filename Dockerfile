@@ -15,5 +15,4 @@ COPY . /app/
 # Expose port if using a web server
 EXPOSE 7860
 
-CMD ["python", "services/app.py"]
-
+CMD ["python", "services/agent.py"]

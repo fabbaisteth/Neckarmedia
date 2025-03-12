@@ -1,0 +1,44 @@
+{
+  "about": "Mit Leidenschaft und technologischem Know-how entwickeln wir funktionale Kampagnen und unterstützen Ihr Marketing-Team mit unserer Expertise. Ob es sich um SEO, SEA oder komplexe Marketing-Strategien handelt, wir sind Ihre Spezialeinheit für digitale Sichtbarkeit – datengetrieben, zielorientiert und mit dem klaren Fokus, für Sie messbare Erfolge zu erzielen.",
+  "services": {
+    "digital_analytics": {
+      "description": "Webanalyse und Tracking mit Fokus auf DSGVO, Borlabs, Cookie Management, Conversion Tracking, Google Analytics 4, Google Tag Manager und Dashboards."
+    },
+    "seo": {
+      "description": "Technische und inhaltliche Optimierung von Webseiten und Webshops für bessere Sichtbarkeit in Suchmaschinen. Optimierung von Ladezeiten (Page Speed) und Google Core Web Vitals."
+    },
+    "sea": {
+      "description": "Entwicklung und Verwaltung von PPC-Kampagnen mit Google Ads. Fokus auf Keyword-Recherche, Optimierung der Klickkosten (CPC) und Verbesserung der Conversion-Rates."
+    },
+    "pla_shopping_campaigns": {
+      "description": "Einrichten und Optimieren des Google Merchant Centers, Programmieren und Optimieren von Shopping Feeds, Erstellung von Shopping Kampagnen (Google Shopping, Google Pmax, META) mit kontinuierlicher Optimierung."
+    },
+    "cro_conversion_optimization": {
+      "description": "Optimierung von Onlineshops, Webseiten, Landingpages und User-Journeys zur Verbesserung der Conversion-Rate. A/B-Tests für datengetriebene Entscheidungen."
+    },
+    "content_marketing": {
+      "description": "Entwicklung von hochwertigem Content für Blogs, Social Media und Webseiten."
+    },
+    "social_media_marketing": {
+      "description": "Werbekampagnen auf Plattformen wie Facebook, Instagram und LinkedIn.",
+      "special": "Employer Branding Kampagnen zur Mitarbeitergewinnung. Nutzung von Social Media und gezieltem Online-Content für den Aufbau einer attraktiven Arbeitgebermarke."
+    }
+  },
+  "workflow": {
+    "kennenlernen_problemverstaendnis": "Persönliches Gespräch zur Analyse von Herausforderungen, Zielen und bisherigen Maßnahmen.",
+    "workshop_analyse_status_quo": "Strukturierter Workshop zur Analyse der aktuellen Situation, Identifikation von Chancen und Bewertung möglicher Lösungswege.",
+    "ableitung_massnahmen_budgetplanung": "Erarbeitung passender Maßnahmen, Durchführung einer Keywordrecherche, Analyse der Marktteilnehmer und Definition des Budgets.",
+    "technische_details_umsetzung": "Klärung technischer Voraussetzungen wie Tracking-Tools, DSGVO-Konformität und Integration bestehender Systeme.",
+    "initiale_optimierung_kampagnenerstellung": "Erste On-Page-Anpassungen für SEO, Erstellung von Kampagnen und initiale Einrichtung von Ads und Content-Elementen.",
+    "fortlaufende_optimierung_monitoring_reporting": "Kontinuierliches Monitoring aller relevanten KPIs mit Dashboards und fortlaufender Optimierung."
+  },
+  "faqs": {
+    "was_unterscheidet_neckarmedia": "Wir arbeiten als strategischer Partner an der Seite Ihres Teams. Unsere Stärke liegt in der Kombination aus fundierter Beratung, praxisnaher Umsetzung und einem klaren Fokus auf messbare Erfolge.",
+    "welche_branchen": "Unsere Expertise ist branchenübergreifend. Wir arbeiten für spezialisierte Lösungsanbieter, mittelständische Unternehmen und global agierende Konzerne.",
+    "taetigkeitsregion": "Wir sind in der gesamten DACH-Region aktiv (Deutschland, Österreich, Schweiz) und betreuen zudem internationale Projekte in englischsprachigen Märkten.",
+    "seo_vs_sea": "SEO sorgt für organische Sichtbarkeit durch Inhalts-, Struktur- und Technikoptimierung. SEA (Google Ads) setzt auf bezahlte Anzeigen für sofortige Sichtbarkeit. Beide Strategien ergänzen sich ideal.",
+    "mobile_seo": "Mobile SEO umfasst Maßnahmen zur Optimierung von Webseiten für mobile Endgeräte. Fokus auf schnelle Ladezeiten, Responsive Design, intuitive Navigation und Touchscreen-Kompatibilität.",
+    "erfolgsmessung": "Präzises, DSGVO-konformes Tracking mit Google Analytics, Google Tag Manager und Borlabs für datenschutzkonforme Cookie-Verwaltung.",
+    "zusammenarbeit_starten": "Der erste Schritt ist ein Workshop oder Kick-off-Meeting, um Ziele, Herausforderungen und Ressourcen zu analysieren und eine maßgeschneiderte Strategie zu entwickeln."
+  }
+}

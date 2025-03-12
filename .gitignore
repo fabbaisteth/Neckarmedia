@@ -4,3 +4,5 @@ __pycache__/
 .env
 neckarmedia_crawl.json
 package-lock.json
+.vscode
+.gradio
