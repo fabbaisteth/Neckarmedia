@@ -10,7 +10,6 @@ from langchain.prompts import PromptTemplate
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 import sqlite3
-import re
 import numpy as np
 
 #TODO - Implement the tool selection logic for agent search blog articles with the new standardized keywords. 
