@@ -15,11 +15,19 @@ import numpy as np
 #TODO - Implement the tool selection logic for agent search blog articles with the new standardized keywords. 
 # Use standardized keywords to cluster articles such as testimonials, case studies, employee stories, workshops
 
-
-load_dotenv()
+# Load .env file from the services directory
+env_path = os.path.join(os.path.dirname(__file__), '.env')
+print(f"Loading .env file from: {env_path}")
+load_dotenv(dotenv_path=env_path)
 openai_api_key = os.getenv("OPENAI_API_KEY")
-client = OAI()
-DB_PATH = "neckarmedia.db"
+if openai_api_key:
+    openai_api_key = openai_api_key.strip()  # Remove any whitespace/newlines
+    print(f"✅ OpenAI API Key loaded: {openai_api_key[:20]}...{openai_api_key[-4:]}")
+client = OAI(api_key=openai_api_key)
+
+# Database path relative to project root (one level up from services/)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+DB_PATH = os.path.join(PROJECT_ROOT, "neckarmedia.db")
 model = SentenceTransformer("all-MiniLM-L6-v2")
 STANDARDIZED_KEYWORDS = []
 
@@ -29,7 +37,8 @@ def connect_db():
 
 def load_services():
     """Loads service descriptions from the JSON file."""
-    with open("services.json", "r", encoding="utf-8") as f:
+    services_path = os.path.join(PROJECT_ROOT, "services.json")
+    with open(services_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 SERVICES_DATA = load_services()
@@ -248,14 +257,38 @@ def generate_chat_response(user_query):
     print(f"💬 Sending request to GPT with system prompt (first 500 chars):\n{system_prompt[:500]}...")
 
     try:
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=messages,
-            temperature=0.7
+        response = client.responses.create(
+            model="gpt-5",
+            input=messages,
+            stream=True
         )
 
-        answer = response.choices[0].message.content
-        print(f"📝 GPT Response: {answer}")
+        # Handle streaming response - collect chunks
+        full_response = ""
+        for chunk in response:
+            # Each chunk has: id, object, status, output (array of content items)
+            if hasattr(chunk, 'output') and chunk.output:
+                for item in chunk.output:
+                    # Each item can have 'type' and 'text' attributes
+                    if hasattr(item, 'text'):
+                        full_response += item.text
+                    elif isinstance(item, dict):
+                        if 'text' in item:
+                            full_response += item['text']
+                        elif 'content' in item:
+                            full_response += item['content']
+        
+        answer = full_response.strip()
+        
+        if not answer:
+            # If streaming didn't work, response might be an object
+            print("⚠️  No content from streaming, trying to parse response object...")
+            if hasattr(response, 'output'):
+                for item in response.output:
+                    if hasattr(item, 'text'):
+                        answer += item.text
+        
+        print(f"📝 GPT Response ({len(answer)} chars): {answer[:200]}..." if len(answer) > 200 else f"📝 GPT Response: {answer}")
 
         if "I don't know" in answer or len(answer.strip()) < 5:
             answer = (
@@ -269,36 +302,3 @@ def generate_chat_response(user_query):
     except Exception as e:
         print(f"🔥 Error in GPT response generation: {e}")
         return "I'm currently unable to process your request. Please try again later."
-
-def ask_agent(user_input):
-    """Handles user queries and returns an AI-generated answer."""
-    return generate_chat_response(user_input)
-
-
-def chat_interface(user_input, chat_history):
-    """
-    This function will be called every time a user sends a message in the Gradio interface.
-    'chat_history' holds the conversation so far (list of [user_msg, bot_msg] pairs).
-    """
-    print(f"🔍 Gradio is running in: {os.getcwd()}")
-    # Get model's response
-    response = ask_agent(user_input)
-
-    # Append to chat history
-    chat_history.append((user_input, response))
-    return "", chat_history  # Return empty input, updated chat history
-
-with gr.Blocks() as demo:
-    gr.Markdown("# Neckarmedia Chatbot")
-
-    chatbot = gr.Chatbot(label="Chat with RAG + OpenAI")
-    msg = gr.Textbox(label="Type your message here...")
-    clear = gr.Button("Clear Chat")
-
-    # Whenever the user hits enter in the textbox, call 'chat_interface'
-    msg.submit(chat_interface, [msg, chatbot], [msg, chatbot])
-
-    # Clear button to reset the chat
-    clear.click(lambda: None, None, chatbot, queue=False)
-
-demo.launch(server_name="0.0.0.0", server_port=7860)
