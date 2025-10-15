@@ -37,7 +37,7 @@ def connect_db():
 
 def load_services():
     """Loads service descriptions from the JSON file."""
-    services_path = os.path.join(PROJECT_ROOT, "services.json")
+    services_path = os.path.join(PROJECT_ROOT, "data/services.json")
     with open(services_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -135,7 +135,7 @@ def agent_search_blog_articles(user_query):
 def get_latest_info():
     """Retrieves structured employee/founder data from latest_info.json."""
     
-    json_path = "latest_info.json"  # Ensure the correct relative path
+    json_path = "data/latest_info.json"  # Ensure the correct relative path
 
     # ✅ Check if the file exists
     if not os.path.exists(json_path):
@@ -245,7 +245,7 @@ def generate_chat_response(user_query):
     Context:
     {context_text}
 
-    If the requested information is unavailable, direct users to Neckarmedia's official website https://www.neckarmedia.com.
+    If the requested information is unavailable, direct users to Neckarmedia's official website https://www.build-different.com.
     Keep responses professional, well-structured, and concise.
     """
 
