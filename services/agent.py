@@ -260,26 +260,10 @@ def generate_chat_response(user_query):
         response = client.responses.create(
             model="gpt-5",
             input=messages,
-            stream=True
+            stream=False
         )
 
-        # Handle streaming response - collect chunks
-        full_response = ""
-        for chunk in response:
-            # Each chunk has: id, object, status, output (array of content items)
-            if hasattr(chunk, 'output') and chunk.output:
-                for item in chunk.output:
-                    # Each item can have 'type' and 'text' attributes
-                    if hasattr(item, 'text'):
-                        full_response += item.text
-                    elif isinstance(item, dict):
-                        if 'text' in item:
-                            full_response += item['text']
-                        elif 'content' in item:
-                            full_response += item['content']
-        
-        answer = full_response.strip()
-        
+        answer = response.output_text
         if not answer:
             # If streaming didn't work, response might be an object
             print("⚠️  No content from streaming, trying to parse response object...")
