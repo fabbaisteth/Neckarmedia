@@ -17,8 +17,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'services'))
 from services.agent import generate_chat_response
 
 # Security Configuration
-# Split comma-separated origins and strip whitespace from each
-ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",")]
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
 RATE_LIMIT_REQUESTS = int(os.getenv("RATE_LIMIT_REQUESTS", "20"))  # More generous for public use
 RATE_LIMIT_PERIOD = int(os.getenv("RATE_LIMIT_PERIOD", "60"))  # seconds
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")

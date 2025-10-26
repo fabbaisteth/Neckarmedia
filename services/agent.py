@@ -245,7 +245,7 @@ def generate_chat_response(user_query):
     Context:
     {context_text}
 
-    If the requested information is unavailable, direct users to Neckarmedia's official website https://www.build-different.com.
+    If the requested information is unavailable, direct users to Neckarmedia's official website https://www.neckarmedia.com.
     Keep responses professional, well-structured, and concise.
     """
 
